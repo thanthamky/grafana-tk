@@ -1,0 +1,17 @@
+version: '2'
+services:
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - 3003:3000
+    volumes:
+      - ./conf:/usr/share/grafana/conf
+    environment:
+      GF_RENDERING_SERVER_URL: http://renderer:3004/render
+      GF_RENDERING_CALLBACK_URL: http://grafana:3003/
+      GF_LOG_FILTERS: rendering:debug
+  renderer:
+    image: grafana/grafana-image-renderer:latest
+    ports:
+      - 3004
+
